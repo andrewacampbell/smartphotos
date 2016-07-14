@@ -38,10 +38,10 @@ img {
 }
 
 .main-overlay {
-  left: 0;
+  left: -65%;
   width: 65%;
   z-index: 1000;
-  color: #ffffff;
+  color: #fff;
   background-color: rgba(0,0,0,.9);
 }
 
@@ -83,7 +83,7 @@ ul.info li {
 
 /*Secondary overlay*/
 .secondary-overlay {
-  left: 65%;
+  left: 100%;
   width: 35%;
   z-index: 900;
 }
@@ -93,19 +93,26 @@ ul.info li {
   padding-bottom: 100%;
   border-radius: 50%;
   margin-bottom: 60px;
-  background-color: red
+  /*background-color: red;*/
 }
 
 .color-palette {
   margin: 0 auto;
   padding: 0;
 }
-
-.color-palette {
+.color-palette:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.color-palette li{
   float: left;
   list-style-type: none;
   display: block;
   width: 29%;
   margin: 2%;
-  
+  border-radius: 50%;
+  padding-bottom: 29%;
+  /*background-color: gold;*/
+
 }
