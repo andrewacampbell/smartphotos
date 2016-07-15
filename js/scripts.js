@@ -4,8 +4,9 @@
  * @return RGB
  */
 function arrayToRGB(array){
-  return "rbg(" + array[0] + ", "array[1]+ ", "array[2] + ")";
+  return "rgb(" + array[0] + ", " + array[1] + ", " + array[2] + ")";
 }
+
 /**
  * take an array an parse it for an RGBA value
  * @param   array
@@ -13,7 +14,7 @@ function arrayToRGB(array){
  * @return RGBA
  */
 function arrayToRGBA(array, alpha){
-  return "rgba(" + array[0] + ", " + array[1] + ", " + array[2] + ", "alpha +")";
+  return "rgba(" + array[0] + ", " + array[1] + ", " + array[2] + ", "+ alpha +")";
 }
 
 function processImages() {
@@ -28,8 +29,16 @@ function processImages() {
 
             dominantColor = colorThief.getColor(targetIamges[index]);
 
+            //Set dominate color for overlay
+            secondaryOverlay.children(".dominant-color").css("background-color", arrayToRGB(dominantColor));
+            mainOverlay.css("background-color", arrayToRGBA(dominantColor, .8));
 
+            // create color palette base on images
+            colorPalette = colorThief.getPalette(targetIamges[index], 6);
 
+            $.each(colorPalette, function(index){
+              $("<li>").appendTo(secondaryOverlay.children(".color-palette")).css("background-color", arrayToRGB($(this)));
+            });
       });
 }
 

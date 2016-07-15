@@ -86,7 +86,7 @@ ul.info li {
   left: 100%;
   width: 35%;
   z-index: 900;
-    background-color: rgba(0, 0, 0, .3);
+    background-color: rgba(0, 0, 0, .7);
 }
 .dominant-color {
   display: block;
