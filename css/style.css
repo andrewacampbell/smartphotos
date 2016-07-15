@@ -7,7 +7,7 @@
 body {
   font-family: "Roboto", "Helvetica Neue", Arial, sans-serif;
   padding: 30px;
-  font-style: 14px;
+  font-size: 14px;
   line-height: 1.5;
 }
 
@@ -41,8 +41,8 @@ img {
   left: -65%;
   width: 65%;
   z-index: 1000;
-  color: #fff;
-  background-color: rgba(0,0,0,.9);
+  color: #ffffff;
+  background-color: rgba(0, 0, 0, .8);
 }
 
 .main-overlay h1 {
@@ -86,6 +86,7 @@ ul.info li {
   left: 100%;
   width: 35%;
   z-index: 900;
+    background-color: rgba(0, 0, 0, .3);
 }
 .dominant-color {
   display: block;
