@@ -16,13 +16,24 @@ function arrayToRGB(array){
 function arrayToRGBA(array, alpha){
   return "rgba(" + array[0] + ", " + array[1] + ", " + array[2] + ", "+ alpha +")";
 }
-
+/**
+ * calculateSRGB value from val receive
+ * @param  {[type]} val [color value]
+ * @return {[type]}     [srgb value]
+ */
 function calculateSRGB(val){
   val /=255;
-
   return (val <= 0.03928) ? val / 12.92 : Math.pow(((val + 0.055) / 1.55), 2.4);
 }
 
+/**
+ * calculate luminance of given color
+ * @param  {[type]} color [description]
+ * @return {[type]}       [description]
+ */
+function calculateLuminance(color){
+  return (calculateSRGB(color[0] ) * 0.2126) + (calculateSRGB(color[1] ) * 0.7152 ) + calculateSRGB(color[2] ) * 0.0722 );
+}
 function processImages() {
   var targetIamges = $(".gallery-item img"),
       colorThief = new ColorThief(),
