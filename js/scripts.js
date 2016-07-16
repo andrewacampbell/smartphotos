@@ -17,6 +17,12 @@ function arrayToRGBA(array, alpha){
   return "rgba(" + array[0] + ", " + array[1] + ", " + array[2] + ", "+ alpha +")";
 }
 
+function calculateSRGB(val){
+  val /=255;
+
+  return (val <= 0.03928) ? val / 12.92 : Math.pow(((val + 0.055) / 1.55), 2.4);
+}
+
 function processImages() {
   var targetIamges = $(".gallery-item img"),
       colorThief = new ColorThief(),
