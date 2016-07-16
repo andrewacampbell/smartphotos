@@ -2,7 +2,12 @@
 *{
   box-sizing: border-box;
 }
+/* Main header*/
+.main-head{
+text-align: center;
+font-size: 34px;
 
+}
 /* Main area*/
 body {
   font-family: "Roboto", "Helvetica Neue", Arial, sans-serif;
@@ -25,6 +30,17 @@ img {
   overflow: hidden;
 }
 
+.gallery{
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.gallery .gallery-item{
+  float: left;
+  width: 48%;
+  margin: 1%;
+}
 /*Overlays*/
 .main-overlay,
 .secondary-overlay {
@@ -117,3 +133,4 @@ ul.info li {
   /*background-color: gold;*/
 
 }
+/*Page footer*/
