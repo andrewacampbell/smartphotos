@@ -17,7 +17,14 @@ function arrayToRGBA(array, alpha){
   return "rgba(" + array[0] + ", " + array[1] + ", " + array[2] + ", "+ alpha +")";
 }
 
-function rgbToArray()
+/**
+ * Take and rgb comma delimted string and turn it into a array
+ * @param take an rgb color string
+ * @return an array
+ */
+function rgbToArray(rgb) {
+  return rgb.replace(/[^\d,]/g, '').split(',');
+}
 
 /**
  * calculateSRGB value from val receive
@@ -73,7 +80,18 @@ function processImages() {
 
             $.each(colorPalette, function(index){
               $("<li>").appendTo(secondaryOverlay.children(".color-palette")).css("background-color", arrayToRGB($(this)));
+
+              contrastRatio = calColorRatio(rgbToArray(textColor), $(this));
+
+              ratios[index] = (contrastRatio >= 7) ? contrastRatio : 1000;
+              colors[index] = $(this);
+
             });
+            //calculate best constrast color base on text color and dominant color of pic
+            contrastRatio = calColorRatio(rgbToArray(textColor), dominantColor);
+
+            dominantColor = (contrastRatio >= 7 ) ? dominantColor : colors[ratios.indexOf(Math.min.apply(Math, ratios))];
+            mainOverlay.css("background-color", arrayToRGBA(dominantColor, .8));
       });
 }
 
@@ -85,7 +103,9 @@ function processImages() {
  */
 $(function(){
 
-  processImages();
+  $("body").imagesLoaded().done(function(instance){
+      processImages();
+  });
   $(".gallery-item").mouseenter( function(){
 
     $( this ).children(".main-overlay").animate({"left":"0"}, 500, function() {
