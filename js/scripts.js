@@ -16,6 +16,9 @@ function arrayToRGB(array){
 function arrayToRGBA(array, alpha){
   return "rgba(" + array[0] + ", " + array[1] + ", " + array[2] + ", "+ alpha +")";
 }
+
+function rgbToArray()
+
 /**
  * calculateSRGB value from val receive
  * @param  {[type]} val [color value]
@@ -27,17 +30,28 @@ function calculateSRGB(val){
 }
 
 /**
- * calculate luminance of given color
- * @param  {[type]} color [description]
- * @return {[type]}       [description]
+ * calculate luminance of given srgb color
+ * @param  {[type]} color [srgb color]
+ * @return {[type]}       [luminance of sRGB color]
  */
 function calculateLuminance(color){
-  return (calculateSRGB(color[0] ) * 0.2126) + (calculateSRGB(color[1] ) * 0.7152 ) + calculateSRGB(color[2] ) * 0.0722 );
+  return (calculateSRGB(color[0] ) * 0.2126) + (calculateSRGB(color[1] ) * 0.7152 ) + (calculateSRGB(color[2] ) * 0.0722 );
 }
+
+function calColorRatio(color1, color2) {
+  var lum1 = calculateLuminance(color1),
+      lum2 = calculateLuminance(color2);
+
+      return Math.round(((lum1 +0.05) / (lum2 + 0.05)) *100 ) /100;
+}
+
 function processImages() {
   var targetIamges = $(".gallery-item img"),
       colorThief = new ColorThief(),
-      dominantColor, colorPalette;
+      ratios = [],
+      colors = [],
+      dominantColor, colorPalette,
+      textColor, contrastRatio;
 
       targetIamges.each( function( index ){
         var $this = $( this ),
@@ -48,10 +62,14 @@ function processImages() {
 
             //Set dominate color for overlay
             secondaryOverlay.children(".dominant-color").css("background-color", arrayToRGB(dominantColor));
-            mainOverlay.css("background-color", arrayToRGBA(dominantColor, .8));
+            //mainOverlay.css("background-color", arrayToRGBA(dominantColor, .8));
 
             // create color palette base on images
             colorPalette = colorThief.getPalette(targetIamges[index], 6);
+
+            // get text color to compare
+            textColor = mainOverlay.find(".overlay-content h1").css("color");
+
 
             $.each(colorPalette, function(index){
               $("<li>").appendTo(secondaryOverlay.children(".color-palette")).css("background-color", arrayToRGB($(this)));
